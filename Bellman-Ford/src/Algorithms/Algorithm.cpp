@@ -1,7 +1,20 @@
 #include "../../includes/Algorithms/Algorithm.h"
 #include <iostream>
+#include <chrono>
 
 using namespace std;
+
+void Algorithm::startTimer()
+{
+	startTime = chrono::steady_clock::now();
+}
+
+long Algorithm::stopTimer()
+{
+	endTime = chrono::steady_clock::now();
+
+	return chrono::duration<double, milli>(endTime - startTime).count();
+}
 
 int* Algorithm::initializeDistances(int vertices)
 {

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Algorithms\ParallelAlgorithm.cpp" />
     <ClCompile Include="src\Algorithms\Algorithm.cpp" />
     <ClCompile Include="src\Algorithms\SerialAlgorithm.cpp" />
     <ClCompile Include="src\Bellman-Ford.cpp" />
@@ -27,6 +28,8 @@
     <ClInclude Include="includes\Models\Edge.h" />
     <ClInclude Include="includes\Algorithms\Algorithm.h" />
     <ClInclude Include="includes\Algorithms\SerialAlgorithm.h" />
+    <ClInclude Include="includes\Algorithms\ParallelAlgorithm.h" />
+    <ClInclude Include="includes\Models\Result.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

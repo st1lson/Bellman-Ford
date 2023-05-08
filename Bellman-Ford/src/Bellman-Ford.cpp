@@ -2,6 +2,7 @@
 #include "../includes/Models/Edge.h"
 #include "../includes/Algorithms/Algorithm.h"
 #include "../includes/Algorithms/SerialAlgorithm.h"
+#include "../includes/Algorithms/ParallelAlgorithm.h"
 #include <vector>
 
 using namespace std;
@@ -20,5 +21,7 @@ int main()
 	};
 
 	Algorithm::Ptr solver(new SerialAlgorithm());
-	solver->solve(edges, edges[0], 5);
+	auto result = solver->solve(edges, edges[0], 5);
+
+	cout << result.duration << endl;
 }

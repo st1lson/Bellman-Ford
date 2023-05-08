@@ -1,13 +1,16 @@
-#include "../../includes/Algorithms/SerialAlgorithm.h"
-#include <vector>
-#include "../../includes/Models/Edge.h"
+#include "../../includes/Algorithms/ParallelAlgorithm.h"
 #include <iostream>
+#include <vector>
+
+#include "omp.h"
 
 using namespace std;
 
-Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertices)
+Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int vertices)
 {
 	startTimer();
+
+	omp_set_num_threads(threadsNumber);
 
 	int* distances = initializeDistances(vertices);
 
@@ -18,7 +21,7 @@ Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertice
 		{
 			Edge edge = edges[j];
 			if (distances[edge.from] == INF) continue;
-			
+
 			int value = distances[edge.from] + edge.weight;
 			if (distances[edge.to] > value) {
 				distances[edge.to] = value;
@@ -36,4 +39,15 @@ Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertice
 	long duration = stopTimer();
 
 	return Result(distances, duration);
+}
+
+int* ParallelAlgorithm::initializeDistances(int vertices)
+{
+	int* distances = new int[vertices];
+#pragma omp parallel for
+	for (int i = 0; i < vertices; i++) {
+		distances[i] = INF;
+	}
+
+	return distances;
 }
