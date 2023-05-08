@@ -8,15 +8,17 @@ using namespace std;
 
 int main()
 {
-	vector<Edge> edges = { { 0, 1, -1 },
-	{ 0, 2, 4 },
-	{ 1, 2, 3 },
-	{ 1, 3, 2 },
-	{ 1, 4, 2 },
-	{ 3, 2, 5 },
-	{ 3, 1, 1 },
-	{ 4, 3, -3 } };
+	vector<Edge> edges = {
+		{ 0, 1, -1 },
+		{ 0, 2, 4 },
+		{ 1, 2, 3 },
+		{ 1, 3, 2 },
+		{ 1, 4, 2 },
+		{ 3, 2, 5 },
+		{ 3, 1, 1 },
+		{ 4, 3, -3 }
+	};
 
-	Algorithm* solver = new SerialAlgorithm();
+	Algorithm::Ptr solver(new SerialAlgorithm());
 	solver->solve(edges, edges[0], 5);
 }

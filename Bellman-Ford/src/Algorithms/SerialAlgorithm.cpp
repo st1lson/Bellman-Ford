@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void SerialAlgorithm::solve(vector<Edge> edges, Edge start, int vertices)
+void SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertices)
 {
 	int* distances = initializeDistances(vertices);
 
@@ -14,7 +14,7 @@ void SerialAlgorithm::solve(vector<Edge> edges, Edge start, int vertices)
 	{
 		for (int j = 0; j < edges.size(); j++)
 		{
-			Edge edge = edges.at(j);
+			Edge edge = edges[j];
 			if (distances[edge.from] == INF) continue;
 			
 			int value = distances[edge.from] + edge.weight;
@@ -30,4 +30,6 @@ void SerialAlgorithm::solve(vector<Edge> edges, Edge start, int vertices)
 	else {
 		printResult(distances, vertices);
 	}
+
+	delete[] distances;
 }

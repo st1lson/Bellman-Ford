@@ -20,11 +20,11 @@ void Algorithm::printResult(int* distances, int vertices)
 	}
 }
 
-bool Algorithm::containsNegativeCycles(std::vector<Edge> edges, int* distances, int vertices)
+bool Algorithm::containsNegativeCycles(const std::vector<Edge>& edges, int* distances, int vertices)
 {
 	bool negativeCyclesExist = false;
 	for (int i = 0; i < edges.size(); i++) {
-		Edge edge = edges.at(i);
+		Edge edge = edges[i];
 
 		if (distances[edge.to] > distances[edge.from] + edge.weight) {
 			negativeCyclesExist = true;
