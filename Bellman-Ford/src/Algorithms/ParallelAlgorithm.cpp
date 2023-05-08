@@ -8,11 +8,27 @@ using namespace std;
 
 Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int vertices)
 {
+	int* chunkStart = new int[threadsNumber];
+	int* chunkEnd = new int[threadsNumber];
+
 	startTimer();
 
 	omp_set_num_threads(threadsNumber);
 
 	int* distances = initializeDistances(vertices);
+
+	int ave = vertices / threadsNumber;
+#pragma omp parallel for
+	for (int i = 0; i < threadsNumber; i++) {
+		chunkStart[i] = ave * i;
+
+		if (i != threadsNumber - 1) {
+			chunkEnd[i] = ave * (i + 1);
+		}
+		else {
+			chunkEnd[i] = vertices;
+		}
+	}
 
 	distances[0] = 0;
 	for (int i = 0; i < vertices - 1; i++)
@@ -31,9 +47,6 @@ Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int 
 
 	if (containsNegativeCycles(edges, distances, vertices)) {
 		cout << "Negative cycle" << endl;
-	}
-	else {
-		printResult(distances, vertices);
 	}
 
 	long duration = stopTimer();

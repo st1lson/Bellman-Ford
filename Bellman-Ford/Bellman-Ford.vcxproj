@@ -23,8 +23,10 @@
     <ClCompile Include="src\Algorithms\Algorithm.cpp" />
     <ClCompile Include="src\Algorithms\SerialAlgorithm.cpp" />
     <ClCompile Include="src\Bellman-Ford.cpp" />
+    <ClCompile Include="src\Generators\GraphGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\Generators\GraphGenerator.h" />
     <ClInclude Include="includes\Models\Edge.h" />
     <ClInclude Include="includes\Algorithms\Algorithm.h" />
     <ClInclude Include="includes\Algorithms\SerialAlgorithm.h" />
