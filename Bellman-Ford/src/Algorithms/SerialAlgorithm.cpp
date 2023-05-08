@@ -1,26 +1,20 @@
 #include "../../includes/Algorithms/SerialAlgorithm.h"
 #include <vector>
 #include "../../includes/Models/Edge.h"
+#include <iostream>
 
 using namespace std;
 
-void SerialAlgorithm::solve(vector<Edge> edges, Edge start)
+void SerialAlgorithm::solve(vector<Edge> edges, Edge start, int vertices)
 {
-	const int size = edges.size();
-
-
-
-	int *distances = new int[size];
-	for (int i = 0; i < size; i++) {
-		distances[i] = INF;
-	}
+	int* distances = initializeDistances(vertices);
 
 	distances[0] = 0;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < vertices - 1; i++)
 	{
-		for (int j = 0; j < size; j++)
+		for (int j = 0; j < edges.size(); j++)
 		{
-			auto& edge = edges.at(j);
+			Edge edge = edges.at(j);
 			if (distances[edge.from] == INF) continue;
 			
 			int value = distances[edge.from] + edge.weight;
@@ -28,5 +22,12 @@ void SerialAlgorithm::solve(vector<Edge> edges, Edge start)
 				distances[edge.to] = value;
 			}
 		}
+	}
+
+	if (containsNegativeCycles(edges, distances, vertices)) {
+		cout << "Negative cycle" << endl;
+	}
+	else {
+		printResult(distances, vertices);
 	}
 }

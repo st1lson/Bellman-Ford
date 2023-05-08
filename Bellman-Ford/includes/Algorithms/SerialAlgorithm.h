@@ -4,6 +4,6 @@
 class SerialAlgorithm : public Algorithm
 {
 public:
-	void solve(std::vector<Edge> edges, Edge start) override;
+	void solve(std::vector<Edge> edges, Edge start, int vertices) override;
 };
 
