@@ -34,16 +34,20 @@ void Algorithm::printResult(int* distances, int vertices)
 	}
 }
 
-bool Algorithm::containsNegativeCycles(const std::vector<Edge>& edges, int* distances, int vertices)
+bool Algorithm::containsNegativeCycles(const std::vector<vector<int>>& adjacencyMatrix, int* distances, int vertices)
 {
 	bool negativeCyclesExist = false;
-	for (int i = 0; i < edges.size(); i++) {
-		Edge edge = edges[i];
+	for (int u = 0; u < vertices; u++) {
+		for (int v = 0; v < vertices; v++)
+		{
+			int weight = adjacencyMatrix[u][v];
+			if (weight >= INF) continue;
 
-		if (distances[edge.source] != INF
-			&& distances[edge.source] + edge.weight < distances[edge.destination]) {
-			negativeCyclesExist = true;
-			break;
+			int value = distances[u] + weight;
+			if (distances[v] > value) {
+				negativeCyclesExist = true;
+				break;
+			}
 		}
 	}
 

@@ -33,6 +33,7 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 	}
 
 	distances[0] = 0;
+
 	#pragma omp parallel
 	{
 		int rank = omp_get_thread_num();
@@ -60,9 +61,9 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 		}
 	}
 
-	//if (containsNegativeCycles(edges, distances, vertices)) {
-	//	cout << "Negative cycle" << endl;
-	//}
+	if (containsNegativeCycles(adjacencyMatrix, distances, vertices)) {
+		cout << "Negative cycle" << endl;
+	}
 
 	long duration = stopTimer();
 
@@ -72,7 +73,8 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 int* ParallelAlgorithm::initializeDistances(int vertices)
 {
 	int* distances = new int[vertices];
-#pragma omp parallel for
+
+	#pragma omp parallel for
 	for (int i = 0; i < vertices; i++) {
 		distances[i] = INF;
 	}
@@ -80,17 +82,22 @@ int* ParallelAlgorithm::initializeDistances(int vertices)
 	return distances;
 }
 
-bool ParallelAlgorithm::containsNegativeCycles(const vector<Edge>& edges, int* distances, int vertices)
+bool ParallelAlgorithm::containsNegativeCycles(const vector<vector<int>>& adjacencyMatrix, int* distances, int vertices)
 {
 	bool negativeCyclesExist = false;
-#pragma omp parallel for reduction(|:negativeCyclesExist)
-	for (int i = 0; i < edges.size(); i++) {
-		Edge edge = edges[i];
 
-		if (distances[edge.source] != INF
-			&& distances[edge.source] + edge.weight < distances[edge.destination]) {
-			negativeCyclesExist = true;
-			break;
+	#pragma omp parallel for reduction(|:negativeCyclesExist)
+	for (int u = 0; u < vertices; u++) {
+		for (int v = 0; v < vertices; v++)
+		{
+			int weight = adjacencyMatrix[u][v];
+			if (weight >= INF) continue;
+
+			int value = distances[u] + weight;
+			if (distances[v] > value) {
+				negativeCyclesExist = true;
+				break;
+			}
 		}
 	}
 

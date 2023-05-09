@@ -34,12 +34,9 @@ Result SerialAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, in
 	}
 
 
-	//if (containsNegativeCycles(edges, distances, vertices)) {
-	//	cout << "Negative cycle" << endl;
-	//}/*
-	//else {
-	//	printResult(distances, vertices);
-	//}*/
+	if (containsNegativeCycles(adjacencyMatrix, distances, vertices)) {
+		cout << "Negative cycle" << endl;
+	}
 
 	long duration = stopTimer();
 

@@ -15,6 +15,6 @@ protected:
 	int* initializeDistances(int vertices) override;
 private:
 	int threadsNumber;
-	bool containsNegativeCycles(const vector<Edge>& edges, int* distances, int vertices) override;
+	bool containsNegativeCycles(const vector<vector<int>>& adjacencyMatrix, int* distances, int vertices) override;
 };
 

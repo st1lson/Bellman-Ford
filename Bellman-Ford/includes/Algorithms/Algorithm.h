@@ -26,5 +26,5 @@ protected:
 	long stopTimer();
 	virtual int* initializeDistances(int vertices);
 	void printResult(int* distances, int vertices);
-	virtual bool containsNegativeCycles(const vector<Edge>& edges, int* distances, int vertices);
+	virtual bool containsNegativeCycles(const vector<vector<int>>& adjacencyMatrix, int* distances, int vertices);
 };
