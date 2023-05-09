@@ -55,7 +55,7 @@ Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int 
 
 	long duration = stopTimer();
 
-	return Result(distances, duration);
+	return Result(distances, duration, vertices);
 }
 
 int* ParallelAlgorithm::initializeDistances(int vertices)

@@ -35,5 +35,5 @@ Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertice
 
 	long duration = stopTimer();
 
-	return Result(distances, duration);
+	return Result(distances, duration, vertices);
 }
