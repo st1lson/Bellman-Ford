@@ -11,26 +11,17 @@ using namespace std;
 int main()
 {
 	auto generator = new GraphGenerator();
-	auto edges = generator->generateGraph(250,4000);
-
-	//vector<Edge> edges = {
-	//	{ 0, 1, -1 },
-	//	{ 0, 2, 4 },
-	//	{ 1, 2, 3 },
-	//	{ 1, 3, 2 },
-	//	{ 1, 4, 2 },
-	//	{ 3, 2, 5 },
-	//	{ 3, 1, 1 },
-	//	{ 4, 3, -3 }
-	//};
+	auto edges = generator->generateGraph(2500,2000000);
 
 	Algorithm::Ptr solver(new SerialAlgorithm());
-	auto result = solver->solve(edges, edges[0], 250);
+	auto result = solver->solve(edges, edges[0], 2500);
 
 	cout << result.duration << endl;
 
 	Algorithm::Ptr parallelSolver(new ParallelAlgorithm(12));
-	result = parallelSolver->solve(edges, edges[0], 250);
+	auto parallelResult = parallelSolver->solve(edges, edges[0], 2500);
 
-	cout << result.duration << endl;
+	cout << parallelResult.duration << endl;
+
+	cout << (result.equals(parallelResult) ? "true" : "false") << endl;
 }

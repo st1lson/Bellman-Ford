@@ -17,7 +17,7 @@ Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertice
 		for (int j = 0; j < edges.size(); j++)
 		{
 			Edge edge = edges[j];
-			if (i == j || distances[edge.from] == INF) continue;
+			if (distances[edge.from] == INF) continue;
 			
 			int value = distances[edge.from] + edge.weight;
 			if (distances[edge.to] > value) {
@@ -26,13 +26,12 @@ Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertice
 		}
 	}
 
-	vector<int> v(distances, distances + vertices);
 	if (containsNegativeCycles(edges, distances, vertices)) {
 		cout << "Negative cycle" << endl;
-	}
+	}/*
 	else {
 		printResult(distances, vertices);
-	}
+	}*/
 
 	long duration = stopTimer();
 

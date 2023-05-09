@@ -17,30 +17,34 @@ Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int 
 
 	int* distances = initializeDistances(vertices);
 
-	int ave = vertices / threadsNumber;
+	int chunkSize = edges.size() / threadsNumber;
 #pragma omp parallel for
 	for (int i = 0; i < threadsNumber; i++) {
-		chunkStart[i] = ave * i;
+		chunkStart[i] = chunkSize * i;
 
 		if (i != threadsNumber - 1) {
-			chunkEnd[i] = ave * (i + 1);
+			chunkEnd[i] = chunkSize * (i + 1);
 		}
 		else {
-			chunkEnd[i] = vertices;
+			chunkEnd[i] = edges.size();
 		}
 	}
 
 	distances[0] = 0;
-	for (int i = 0; i < vertices - 1; i++)
+#pragma omp parallel
 	{
-		for (int j = 0; j < edges.size(); j++)
+		int rank = omp_get_thread_num();
+		for (int i = 0; i < vertices - 1; i++)
 		{
-			Edge edge = edges[j];
-			if (distances[edge.from] == INF) continue;
+			for (int j = chunkStart[rank]; j < chunkEnd[rank]; j++)
+			{
+				Edge edge = edges[j];
+				if (distances[edge.from] == INF) continue;
 
-			int value = distances[edge.from] + edge.weight;
-			if (distances[edge.to] > value) {
-				distances[edge.to] = value;
+				int value = distances[edge.from] + edge.weight;
+				if (distances[edge.to] > value) {
+					distances[edge.to] = value;
+				}
 			}
 		}
 	}
