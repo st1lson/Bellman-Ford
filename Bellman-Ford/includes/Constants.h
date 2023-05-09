@@ -4,7 +4,9 @@
 using namespace std;
 
 constexpr int INF = 1e5;
-constexpr bool SERIALIZE = true;
+
+constexpr bool GENERATE_MATRIX = false;
+constexpr bool SERIALIZE_MATRIX = true;
 
 constexpr int VERTICES = 1000;
 constexpr int EDGES = 1000000;

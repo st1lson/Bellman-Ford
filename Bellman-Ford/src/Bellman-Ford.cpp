@@ -12,10 +12,13 @@ using namespace std;
 
 int main()
 {
-	auto generator = new GraphGenerator();
-	auto adjacencyMatrix = generator->generateGraph(VERTICES, EDGES);
-	if (SERIALIZE) {
-		GraphSerializer().serialize(format("{}\\{}.txt", PATH, VERTICES), adjacencyMatrix);
+	const string filePath = format("{}\\{}.txt", PATH, VERTICES);
+
+	auto adjacencyMatrix = GENERATE_MATRIX
+		? GraphGenerator().generateGraph(VERTICES, EDGES)
+		: GraphSerializer().deserialize(filePath);
+	if (SERIALIZE_MATRIX) {
+		GraphSerializer().serialize(filePath, adjacencyMatrix);
 	}
 
 	Algorithm::Ptr solver(new SerialAlgorithm());
