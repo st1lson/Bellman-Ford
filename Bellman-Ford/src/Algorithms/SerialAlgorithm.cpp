@@ -17,11 +17,11 @@ Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertice
 		for (int j = 0; j < edges.size(); j++)
 		{
 			Edge edge = edges[j];
-			if (distances[edge.from] == INF) continue;
+			if (distances[edge.source] == INF) continue;
 			
-			int value = distances[edge.from] + edge.weight;
-			if (distances[edge.to] > value) {
-				distances[edge.to] = value;
+			int value = distances[edge.source] + edge.weight;
+			if (distances[edge.destination] > value) {
+				distances[edge.destination] = value;
 			}
 		}
 	}

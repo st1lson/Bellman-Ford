@@ -11,7 +11,7 @@ using namespace std;
 int main()
 {
 	auto generator = new GraphGenerator();
-	auto edges = generator->generateGraph(2500,2000000);
+	auto edges = generator->generateGraph(1000, 1000000);
 
 	Algorithm::Ptr solver(new SerialAlgorithm());
 	auto result = solver->solve(edges, edges[0], 2500);

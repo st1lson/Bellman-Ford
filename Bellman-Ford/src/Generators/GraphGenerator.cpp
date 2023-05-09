@@ -14,11 +14,11 @@ vector<Edge> GraphGenerator::generateGraph(int verticesCount, int edgesCount)
     vector<Edge> edges;
     auto comp = [](Edge x, Edge y)
     { 
-        if (x.from == y.from) {
-            return x.to < y.to;
+        if (x.source == y.source) {
+            return x.destination < y.destination;
         }
         else {
-            return x.from < y.from;
+            return x.source < y.source;
         }
     };
     auto unique_edges = set<Edge,decltype(comp)>(comp);

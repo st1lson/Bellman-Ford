@@ -39,11 +39,11 @@ Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int 
 			for (int j = chunkStart[rank]; j < chunkEnd[rank]; j++)
 			{
 				Edge edge = edges[j];
-				if (distances[edge.from] == INF) continue;
+				if (distances[edge.source] == INF) continue;
 
-				int value = distances[edge.from] + edge.weight;
-				if (distances[edge.to] > value) {
-					distances[edge.to] = value;
+				int value = distances[edge.source] + edge.weight;
+				if (distances[edge.destination] > value) {
+					distances[edge.destination] = value;
 				}
 			}
 		}

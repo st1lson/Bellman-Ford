@@ -39,8 +39,8 @@ bool Algorithm::containsNegativeCycles(const std::vector<Edge>& edges, int* dist
 	for (int i = 0; i < edges.size(); i++) {
 		Edge edge = edges[i];
 
-		if (distances[edge.from] != INF
-			&& distances[edge.from] + edge.weight < distances[edge.to]) {
+		if (distances[edge.source] != INF
+			&& distances[edge.source] + edge.weight < distances[edge.destination]) {
 			negativeCyclesExist = true;
 			break;
 		}

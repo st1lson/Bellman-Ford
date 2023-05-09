@@ -1,9 +1,9 @@
 #pragma once
 struct Edge
 {
-	int from;
-	int to;
+	int source;
+	int destination;
 	long weight;
 
-	Edge(int from, int to, long weight): from(from), to(to), weight(weight) {}
+	Edge(int from, int to, long weight): source(from), destination(to), weight(weight) {}
 };
