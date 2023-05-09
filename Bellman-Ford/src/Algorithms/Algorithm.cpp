@@ -1,6 +1,7 @@
 #include "../../includes/Algorithms/Algorithm.h"
 #include <iostream>
 #include <chrono>
+#include "../../includes/Constants.h"
 
 using namespace std;
 

@@ -4,38 +4,29 @@
 #include <set>
 #include "../../includes/Models/Edge.h"
 #include "time.h"
+#include "../../includes/Constants.h"
 
 using namespace std;
 
-vector<Edge> GraphGenerator::generateGraph(int verticesCount, int edgesCount)
+vector<vector<int>> GraphGenerator::generateGraph(int verticesCount, int edgesCount)
 {
     srand(time(NULL));
 
-    vector<Edge> edges;
-    auto comp = [](Edge x, Edge y)
-    { 
-        if (x.source == y.source) {
-            return x.destination < y.destination;
-        }
-        else {
-            return x.source < y.source;
-        }
-    };
-    auto unique_edges = set<Edge,decltype(comp)>(comp);
+    vector<vector<int>> adjacencyMatrix(verticesCount, vector<int>(verticesCount, INF));
+    set<pair<int, int>> unique_edges;
 
     for (int i = 0; i < edgesCount; i++) {
         int u = rand() % verticesCount, v = rand() % verticesCount;
         if (u > v) swap(u, v);
 
-        int w = rand() % 13 - 2;
-        auto edge = Edge(u, v, w);
-        if (u == v || unique_edges.count(edge)) {
+        int w = rand() % 10 + 1;
+        if (u == v || unique_edges.count({ u, v })) {
             continue;
         }
 
-        edges.push_back(edge);
-        unique_edges.insert(edge);
+        adjacencyMatrix[u][v] = w;
+        unique_edges.insert({ u, v });
     }
 
-    return edges;
+    return adjacencyMatrix;
 }

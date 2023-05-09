@@ -3,10 +3,11 @@
 #include <vector>
 
 #include "omp.h"
+#include "../../includes/Constants.h"
 
 using namespace std;
 
-Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int vertices)
+Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, int vertices)
 {
 	int* chunkStart = new int[threadsNumber];
 	int* chunkEnd = new int[threadsNumber];
@@ -17,8 +18,9 @@ Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int 
 
 	int* distances = initializeDistances(vertices);
 
-	int chunkSize = edges.size() / threadsNumber;
-#pragma omp parallel for
+	int chunkSize = vertices / threadsNumber;
+
+	#pragma omp parallel for
 	for (int i = 0; i < threadsNumber; i++) {
 		chunkStart[i] = chunkSize * i;
 
@@ -26,32 +28,41 @@ Result ParallelAlgorithm::solve(const std::vector<Edge>& edges, Edge start, int 
 			chunkEnd[i] = chunkSize * (i + 1);
 		}
 		else {
-			chunkEnd[i] = edges.size();
+			chunkEnd[i] = vertices;
 		}
 	}
 
 	distances[0] = 0;
-#pragma omp parallel
+	#pragma omp parallel
 	{
 		int rank = omp_get_thread_num();
 		for (int i = 0; i < vertices - 1; i++)
 		{
-			for (int j = chunkStart[rank]; j < chunkEnd[rank]; j++)
-			{
-				Edge edge = edges[j];
-				if (distances[edge.source] == INF) continue;
+			bool relaxed = false;
 
-				int value = distances[edge.source] + edge.weight;
-				if (distances[edge.destination] > value) {
-					distances[edge.destination] = value;
+			for (int u = 0; u < vertices; u++)
+			{
+				for (int v = chunkStart[rank]; v < chunkEnd[rank]; v++)
+				{
+					int weight = adjacencyMatrix[u][v];
+					if (weight >= INF) continue;
+
+					int value = distances[u] + weight;
+					if (distances[v] > value) {
+						distances[v] = value;
+						relaxed = true;
+					}
 				}
 			}
+
+			if (!relaxed)
+				break;
 		}
 	}
 
-	if (containsNegativeCycles(edges, distances, vertices)) {
-		cout << "Negative cycle" << endl;
-	}
+	//if (containsNegativeCycles(edges, distances, vertices)) {
+	//	cout << "Negative cycle" << endl;
+	//}
 
 	long duration = stopTimer();
 

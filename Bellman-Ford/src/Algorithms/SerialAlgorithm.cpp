@@ -2,36 +2,44 @@
 #include <vector>
 #include "../../includes/Models/Edge.h"
 #include <iostream>
+#include "../../includes/Constants.h"
 
 using namespace std;
 
-Result SerialAlgorithm::solve(const vector<Edge>& edges, Edge start, int vertices)
+Result SerialAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, int vertices)
 {
 	startTimer();
 
 	int* distances = initializeDistances(vertices);
 
 	distances[0] = 0;
-	for (int i = 0; i < vertices - 1; i++)
-	{
-		for (int j = 0; j < edges.size(); j++)
-		{
-			Edge edge = edges[j];
-			if (distances[edge.source] == INF) continue;
-			
-			int value = distances[edge.source] + edge.weight;
-			if (distances[edge.destination] > value) {
-				distances[edge.destination] = value;
+	for (int i = 0; i < vertices - 1; i++) {
+		bool relaxed = false;
+		for (int u = 0; u < vertices; u++) {
+			for (int v = 0; v < vertices; v++) {
+				int weight = adjacencyMatrix[u][v];
+				if (weight >= INF) continue;
+
+				int value = distances[u] + weight;
+				if (distances[v] > value) {
+					distances[v] = value;
+					relaxed = true;
+				}
 			}
+		}
+		
+		if (!relaxed) {
+			break;
 		}
 	}
 
-	if (containsNegativeCycles(edges, distances, vertices)) {
-		cout << "Negative cycle" << endl;
-	}/*
-	else {
-		printResult(distances, vertices);
-	}*/
+
+	//if (containsNegativeCycles(edges, distances, vertices)) {
+	//	cout << "Negative cycle" << endl;
+	//}/*
+	//else {
+	//	printResult(distances, vertices);
+	//}*/
 
 	long duration = stopTimer();
 

@@ -16,9 +16,8 @@ public:
 		this->parallel = parallel;
 	}
 
-	virtual Result solve(const vector<Edge>& edges, Edge start, int vertices) = 0;
+	virtual Result solve(vector<vector<int>> adjacencyMatrix, int start, int vertices) = 0;
 protected:
-	const int INF = INT_MAX;
 	bool parallel = false;
 	chrono::steady_clock::time_point startTime;
 	chrono::steady_clock::time_point endTime;

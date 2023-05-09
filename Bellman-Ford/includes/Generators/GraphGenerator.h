@@ -2,7 +2,9 @@
 #include "../Models/Edge.h"
 #include <vector>
 
+using namespace std;
+
 class GraphGenerator {
 public:
-	std::vector<Edge> generateGraph(int verticesCount, int edgesCount);
+	vector<vector<int>> generateGraph(int verticesCount, int edgesCount);
 };

@@ -1,6 +1,8 @@
 #pragma once
 #include "Algorithm.h"
 
+using namespace std;
+
 class ParallelAlgorithm : public Algorithm
 {
 public:
@@ -8,7 +10,7 @@ public:
 		threadsNumber = threads;
 	}
 
-	Result solve(const std::vector<Edge>& edges, Edge start, int vertices) override;
+	Result solve(vector<vector<int>> adjacencyMatrix, int start, int vertices) override;
 protected:
 	int* initializeDistances(int vertices) override;
 private:
