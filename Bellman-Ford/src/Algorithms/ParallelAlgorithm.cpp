@@ -68,3 +68,20 @@ int* ParallelAlgorithm::initializeDistances(int vertices)
 
 	return distances;
 }
+
+bool ParallelAlgorithm::containsNegativeCycles(const vector<Edge>& edges, int* distances, int vertices)
+{
+	bool negativeCyclesExist = false;
+#pragma omp parallel for reduction(|:negativeCyclesExist)
+	for (int i = 0; i < edges.size(); i++) {
+		Edge edge = edges[i];
+
+		if (distances[edge.source] != INF
+			&& distances[edge.source] + edge.weight < distances[edge.destination]) {
+			negativeCyclesExist = true;
+			break;
+		}
+	}
+
+	return negativeCyclesExist;
+}

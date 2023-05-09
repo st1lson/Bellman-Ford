@@ -27,7 +27,7 @@ vector<Edge> GraphGenerator::generateGraph(int verticesCount, int edgesCount)
         int u = rand() % verticesCount, v = rand() % verticesCount;
         if (u > v) swap(u, v);
 
-        int w = rand() % 10 + 1;
+        int w = rand() % 13 - 2;
         auto edge = Edge(u, v, w);
         if (u == v || unique_edges.count(edge)) {
             continue;

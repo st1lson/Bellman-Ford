@@ -14,12 +14,12 @@ int main()
 	auto edges = generator->generateGraph(1000, 1000000);
 
 	Algorithm::Ptr solver(new SerialAlgorithm());
-	auto result = solver->solve(edges, edges[0], 2500);
+	auto result = solver->solve(edges, edges[0], 1000);
 
 	cout << result.duration << endl;
 
 	Algorithm::Ptr parallelSolver(new ParallelAlgorithm(12));
-	auto parallelResult = parallelSolver->solve(edges, edges[0], 2500);
+	auto parallelResult = parallelSolver->solve(edges, edges[0], 1000);
 
 	cout << parallelResult.duration << endl;
 
