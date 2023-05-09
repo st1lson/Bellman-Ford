@@ -26,6 +26,9 @@
     <ClCompile Include="src\Generators\GraphGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Serializers\GraphSerializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\Algorithms\Algorithm.h">
@@ -44,6 +47,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\Generators\GraphGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Serializers\GraphSerializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
