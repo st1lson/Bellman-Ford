@@ -60,7 +60,6 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 			#pragma omp barrier
 			#pragma omp single
 			{
-				i++;
 				relaxed = false;
 				for (int rank = 0; rank < threadsNumber; rank++) {
 					relaxed |= localRelaxed[rank];

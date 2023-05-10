@@ -28,7 +28,7 @@ Result SerialAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, in
 				}
 			}
 		}
-		
+
 		if (!relaxed) {
 			break;
 		}

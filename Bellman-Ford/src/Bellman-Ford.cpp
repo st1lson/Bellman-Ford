@@ -15,7 +15,7 @@ int main()
 	const string filePath = format("{}\\{}.txt", PATH, VERTICES);
 
 	auto adjacencyMatrix = GENERATE_MATRIX
-		? GraphGenerator().generateGraph(VERTICES, EDGES)
+		? GraphGenerator().generateGraph(VERTICES)
 		: GraphSerializer().deserialize(filePath);
 	if (SERIALIZE_MATRIX) {
 		GraphSerializer().serialize(filePath, adjacencyMatrix);
@@ -26,7 +26,7 @@ int main()
 
 	cout << format("Serial alogirthm:\n{}\n", result.toString());
 
-	Algorithm::Ptr parallelSolver(new ParallelAlgorithm(12));
+	Algorithm::Ptr parallelSolver(new ParallelAlgorithm(NUMBER_OF_PROCESSORS));
 	auto parallelResult = parallelSolver->solve(adjacencyMatrix, 0, VERTICES);
 
 	cout << format("Parallel alogirthm:\n{}\n", parallelResult.toString());
