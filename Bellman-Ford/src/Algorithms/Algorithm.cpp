@@ -38,8 +38,7 @@ bool Algorithm::containsNegativeCycles(const std::vector<vector<int>>& adjacency
 {
 	bool negativeCyclesExist = false;
 	for (int u = 0; u < vertices; u++) {
-		for (int v = 0; v < vertices; v++)
-		{
+		for (int v = 0; v < vertices; v++) {
 			int weight = adjacencyMatrix[u][v];
 			if (weight >= INF) continue;
 

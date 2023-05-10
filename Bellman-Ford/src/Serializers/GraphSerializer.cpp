@@ -9,10 +9,8 @@ void GraphSerializer::serialize(string path, vector<vector<int>> value)
 
 	int vertices = value.size();
 	file << vertices << endl;
-	for (int i = 0; i < vertices; i++)
-	{
-		for (int j = 0; j < vertices; j++)
-		{
+	for (int i = 0; i < vertices; i++) {
+		for (int j = 0; j < vertices; j++) {
 			file << value[i][j] << " ";
 		}
 
@@ -35,10 +33,8 @@ vector<vector<int>> GraphSerializer::deserialize(string path)
 	int vertices = stoi(line);
 
 	vector<vector<int>> matrix(vertices, vector<int>(vertices, INF));
-	for (int i = 0; i < vertices; i++)
-	{
-		for (int j = 0; j < vertices; j++)
-		{
+	for (int i = 0; i < vertices; i++) {
+		for (int j = 0; j < vertices; j++) {
 			file >> matrix[i][j];
 		}
 	}

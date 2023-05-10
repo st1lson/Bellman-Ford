@@ -31,5 +31,5 @@ int main()
 
 	cout << format("Parallel alogirthm:\n{}\n", parallelResult.toString());
 
-	cout << format("Distances equal: {}\n", (result.equals(parallelResult) ? "true" : "false"));
+	result.assert(parallelResult);
 }

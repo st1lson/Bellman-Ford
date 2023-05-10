@@ -38,14 +38,11 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 	#pragma omp parallel
 	{
 		int rank = omp_get_thread_num();
-		for (int i = 0; i < vertices - 1; i++)
-		{
+		for (int i = 0; i < vertices - 1; i++) {
 			localRelaxed[rank] = false;
 
-			for (int u = 0; u < vertices; u++)
-			{
-				for (int v = chunkStart[rank]; v < chunkEnd[rank]; v++)
-				{
+			for (int u = 0; u < vertices; u++) {
+				for (int v = chunkStart[rank]; v < chunkEnd[rank]; v++) {
 					int weight = adjacencyMatrix[u][v];
 					if (weight >= INF) continue;
 
@@ -97,8 +94,7 @@ bool ParallelAlgorithm::containsNegativeCycles(const vector<vector<int>>& adjace
 
 	#pragma omp parallel for reduction(|:negativeCyclesExist)
 	for (int u = 0; u < vertices; u++) {
-		for (int v = 0; v < vertices; v++)
-		{
+		for (int v = 0; v < vertices; v++) {
 			int weight = adjacencyMatrix[u][v];
 			if (weight >= INF) continue;
 

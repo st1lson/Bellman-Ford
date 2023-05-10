@@ -17,8 +17,7 @@ struct Result
 	}
 
 	bool equals(Result result) {
-		for (int i = 0; i < length; i++)
-		{
+		for (int i = 0; i < length; i++) {
 			if (distances[i] != result.distances[i]) return false;
 		}
 
@@ -32,6 +31,15 @@ struct Result
 		ss << format("Constains negative cycles: {}\n", containsNegativeCycle);
 
 		return ss.str();
+	}
+
+	void assert(Result result) {
+		if (!result.containsNegativeCycle) {
+			cout << format("Distances equal: {}\n", (result.equals(result) ? "true" : "false"));
+		}
+		else {
+			cout << "Negative cycle" << endl;
+		}
 	}
 
 private:
