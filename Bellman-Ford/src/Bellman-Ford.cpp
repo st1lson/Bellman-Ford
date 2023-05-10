@@ -24,12 +24,12 @@ int main()
 	Algorithm::Ptr solver(new SerialAlgorithm());
 	auto result = solver->solve(adjacencyMatrix, 0, VERTICES);
 
-	cout << result.duration << endl;
+	cout << format("Serial alogirthm:\n{}\n", result.toString());
 
 	Algorithm::Ptr parallelSolver(new ParallelAlgorithm(12));
 	auto parallelResult = parallelSolver->solve(adjacencyMatrix, 0, VERTICES);
 
-	cout << parallelResult.duration << endl;
+	cout << format("Parallel alogirthm:\n{}\n", parallelResult.toString());
 
-	cout << (result.equals(parallelResult) ? "true" : "false") << endl;
+	cout << format("Distances equal: {}\n", (result.equals(parallelResult) ? "true" : "false"));
 }

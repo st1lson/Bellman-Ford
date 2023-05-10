@@ -15,6 +15,7 @@ Result SerialAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, in
 	distances[0] = 0;
 	for (int i = 0; i < vertices - 1; i++) {
 		bool relaxed = false;
+
 		for (int u = 0; u < vertices; u++) {
 			for (int v = 0; v < vertices; v++) {
 				int weight = adjacencyMatrix[u][v];
@@ -34,11 +35,9 @@ Result SerialAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, in
 	}
 
 
-	if (containsNegativeCycles(adjacencyMatrix, distances, vertices)) {
-		cout << "Negative cycle" << endl;
-	}
+	bool negativeCycle = containsNegativeCycles(adjacencyMatrix, distances, vertices);
 
 	long duration = stopTimer();
 
-	return Result(distances, duration, vertices);
+	return Result(distances, duration, vertices, negativeCycle);
 }

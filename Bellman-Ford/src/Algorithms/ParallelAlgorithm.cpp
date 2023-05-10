@@ -32,14 +32,15 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 		}
 	}
 
+	bool relaxed;
+	vector<bool> localRelaxed(threadsNumber);
 	distances[0] = 0;
-
 	#pragma omp parallel
 	{
 		int rank = omp_get_thread_num();
 		for (int i = 0; i < vertices - 1; i++)
 		{
-			bool relaxed = false;
+			localRelaxed[rank] = false;
 
 			for (int u = 0; u < vertices; u++)
 			{
@@ -51,23 +52,32 @@ Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, 
 					int value = distances[u] + weight;
 					if (distances[v] > value) {
 						distances[v] = value;
-						relaxed = true;
+						localRelaxed[rank] = true;
 					}
 				}
 			}
 
-			if (!relaxed)
+			#pragma omp barrier
+			#pragma omp single
+			{
+				i++;
+				relaxed = false;
+				for (int rank = 0; rank < threadsNumber; rank++) {
+					relaxed |= localRelaxed[rank];
+				}
+			}
+
+			if (!relaxed) {
 				break;
+			}
 		}
 	}
 
-	if (containsNegativeCycles(adjacencyMatrix, distances, vertices)) {
-		cout << "Negative cycle" << endl;
-	}
+	bool negativeCylcles = containsNegativeCycles(adjacencyMatrix, distances, vertices);
 
 	long duration = stopTimer();
 
-	return Result(distances, duration, vertices);
+	return Result(distances, duration, vertices, negativeCylcles);
 }
 
 int* ParallelAlgorithm::initializeDistances(int vertices)

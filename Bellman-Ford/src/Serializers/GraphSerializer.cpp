@@ -24,10 +24,10 @@ void GraphSerializer::serialize(string path, vector<vector<int>> value)
 
 vector<vector<int>> GraphSerializer::deserialize(string path)
 {
-	ifstream file(path, ifstream::in);
+	ifstream file(path);
 
 	if (!file.is_open()) {
-		throw std::exception("failed to open a stream");
+		throw exception("failed to open a stream");
 	}
 
 	string line;

@@ -2,14 +2,18 @@
 #include <vector>
 #include <iostream>
 #include "Edge.h"
+#include "../Constants.h";
+
+using namespace std;
+
 struct Result
 {
-	std::shared_ptr<int[]> distances;
+	shared_ptr<int[]> distances;
+	bool containsNegativeCycle;
 	long duration;
 
-	Result(int* distances, long duration, int length)
-		: distances(distances), duration(duration) {
-		this->length = length;
+	Result(int* distances, long duration, int length, bool containsNegativeCycle)
+		: distances(distances), duration(duration), length(length), containsNegativeCycle(containsNegativeCycle) {
 	}
 
 	bool equals(Result result) {
@@ -19,6 +23,15 @@ struct Result
 		}
 
 		return true;
+	}
+
+	string toString() {
+		stringstream ss;
+
+		ss << format("Duration: {}ms\n", duration);
+		ss << format("Constains negative cycles: {}\n", containsNegativeCycle);
+
+		return ss.str();
 	}
 
 private:

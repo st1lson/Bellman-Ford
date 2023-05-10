@@ -19,7 +19,7 @@ vector<vector<int>> GraphGenerator::generateGraph(int verticesCount, int edgesCo
         int u = rand() % verticesCount, v = rand() % verticesCount;
         if (u > v) swap(u, v);
 
-        int w = rand() % 10 + 1;
+        int w = rand() % 12 - 2;
         if (u == v || unique_edges.count({ u, v })) {
             continue;
         }
