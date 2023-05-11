@@ -9,27 +9,20 @@ using namespace std;
 
 Result ParallelAlgorithm::solve(vector<vector<int>> adjacencyMatrix, int start, int vertices)
 {
-	int* chunkStart = new int[threadsNumber];
-	int* chunkEnd = new int[threadsNumber];
-
 	startTimer();
 
 	omp_set_num_threads(threadsNumber);
+
+	int* chunkStart = new int[threadsNumber];
+	int* chunkEnd = new int[threadsNumber];
 
 	int* distances = initializeDistances(vertices);
 
 	int chunkSize = vertices / threadsNumber;
 
-	#pragma omp parallel for
 	for (int i = 0; i < threadsNumber; i++) {
 		chunkStart[i] = chunkSize * i;
-
-		if (i != threadsNumber - 1) {
-			chunkEnd[i] = chunkSize * (i + 1);
-		}
-		else {
-			chunkEnd[i] = vertices;
-		}
+		chunkEnd[i] = i != threadsNumber - 1 ? chunkSize * (i + 1) : vertices;
 	}
 
 	bool relaxed;
