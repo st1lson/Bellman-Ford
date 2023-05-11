@@ -1,7 +1,4 @@
 #include "../../includes/Algorithms/SerialAlgorithm.h"
-#include <vector>
-#include "../../includes/Models/Edge.h"
-#include <iostream>
 #include "../../includes/Constants.h"
 
 using namespace std;

@@ -1,8 +1,8 @@
 #pragma once
-#include "../Models/Edge.h"
 #include <vector>
 #include <memory>
 #include <chrono>
+
 #include "../Models/Result.h"
 
 using namespace std;

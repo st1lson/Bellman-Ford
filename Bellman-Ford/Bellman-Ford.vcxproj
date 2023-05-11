@@ -29,7 +29,6 @@
   <ItemGroup>
     <ClInclude Include="includes\Constants.h" />
     <ClInclude Include="includes\Generators\GraphGenerator.h" />
-    <ClInclude Include="includes\Models\Edge.h" />
     <ClInclude Include="includes\Algorithms\Algorithm.h" />
     <ClInclude Include="includes\Algorithms\SerialAlgorithm.h" />
     <ClInclude Include="includes\Algorithms\ParallelAlgorithm.h" />

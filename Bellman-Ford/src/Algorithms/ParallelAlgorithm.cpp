@@ -1,8 +1,6 @@
-#include "../../includes/Algorithms/ParallelAlgorithm.h"
-#include <iostream>
-#include <vector>
-
 #include "omp.h"
+
+#include "../../includes/Algorithms/ParallelAlgorithm.h"
 #include "../../includes/Constants.h"
 
 using namespace std;

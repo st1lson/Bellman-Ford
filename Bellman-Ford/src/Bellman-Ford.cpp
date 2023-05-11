@@ -1,11 +1,11 @@
 #include <iostream>
-#include "../includes/Models/Edge.h"
+#include <vector>
+
 #include "../includes/Algorithms/Algorithm.h"
 #include "../includes/Algorithms/SerialAlgorithm.h"
 #include "../includes/Algorithms/ParallelAlgorithm.h"
 #include "../includes/Generators/GraphGenerator.h"
 #include "../includes/Serializers/GraphSerializer.h"
-#include <vector>
 #include "../includes/Constants.h"
 
 using namespace std;
