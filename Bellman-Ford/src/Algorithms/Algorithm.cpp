@@ -29,9 +29,12 @@ int* Algorithm::initializeDistances(int vertices)
 
 void Algorithm::printResult(int* distances, int vertices)
 {
+	cout << endl << "Serial algorithm result:" << endl;
 	for (int i = 0; i < vertices; i++) {
-		cout << i << "=>" << distances[i] << endl;
+		cout << "To vertix " << i << setw(4) << "=>" << setw(4) << distances[i] << endl;
 	}
+
+	cout << endl;
 }
 
 bool Algorithm::containsNegativeCycles(const std::vector<vector<int>>& adjacencyMatrix, int* distances, int vertices)
