@@ -29,18 +29,5 @@ vector<vector<int>> GraphGenerator::generateGraph(int verticesCount)
         }
     }
 
-    for (int k = 0; k < verticesCount; ++k) {
-        for (int i = 0; i < verticesCount; ++i) {
-            for (int j = 0; j < verticesCount; ++j) {
-                if (adjacencyMatrix[i][k] == 0 || adjacencyMatrix[k][j] == 0) continue;
-
-                int newWeight = adjacencyMatrix[i][k] + adjacencyMatrix[k][j];
-                if (adjacencyMatrix[i][j] == 0 || newWeight < adjacencyMatrix[i][j]) {
-                    adjacencyMatrix[i][j] = newWeight;
-                }
-            }
-        }
-    }
-
     return adjacencyMatrix;
 }
